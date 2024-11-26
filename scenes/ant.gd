@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 
 
 var speed = 200  # Vitesse du personnage en pixels par seconde
-
+var carried_object = null
 
 
 func _physics_process(delta: float) -> void:
@@ -30,6 +30,9 @@ func _physics_process(delta: float) -> void:
 
 	# Définir la vélocité du personnage
 	velocity = input_vector * speed
+
+	if carried_object:
+		carried_object.position = position
 
 # Déplacer le personnage et détecter les collisions
 #	var collision = move_and_collide(velocity * delta)
@@ -52,3 +55,12 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	#On peut agir sur les paramètres du Square rencontré
 	area.position = position
 	
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+
+	print("Collision", body)	
+	body.position = position
+	carried_object = body
+	
+	pass # Replace with function body.
