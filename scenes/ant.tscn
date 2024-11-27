@@ -4,13 +4,20 @@
 [ext_resource type="Script" path="res://scenes/ant.gd" id="1_prexr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xn5j1"]
+radius = 6.0
+height = 18.0
 
 [node name="Ant" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_prexr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_3gwff")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_xn5j1")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(4, 4)
-texture = ExtResource("1_3gwff")
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

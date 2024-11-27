@@ -1,49 +1,60 @@
 extends Node2D
 
+@export var nb_red_squares = 300
+@export var nb_blue_squares = 300
+@export var nb_ants = 10
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	var square_scene = preload("res://scenes/square.tscn")
+	var square_red_scene = preload("res://scenes/square_red.tscn")
+	var square_blue_scene = preload("res://scenes/square_blue.tscn")
 	var ant_scene = preload("res://scenes/ant.tscn")
 		
-	_create_squares(square_scene)
-	_create_ants(ant_scene)
+	_create_squares(square_red_scene, nb_red_squares)
+	_create_squares(square_blue_scene, nb_blue_squares)
+
+	_create_ants(ant_scene, nb_ants)
 
 	_connect_signal_between_squares_and_ants()
 	
 
-func _create_ants(ant_scene: PackedScene):	
+func _create_ants(ant_scene: PackedScene, nb_ants: int):	
 	
 	var rng := RandomNumberGenerator.new()
-	var field_size = get_viewport_rect().size
+	var field_size = get_viewport_rect().size		
 	
-	var random_x = rng.randi_range(0, field_size[0])
-	var random_y = rng.randi_range(0, field_size[1])
+	for i in nb_ants:
 	
-	var ant = ant_scene.instantiate()
+		var ant = ant_scene.instantiate()
 	
-	ant.position = Vector2(random_x, random_y)	
+		var random_x = rng.randi_range(0 + ant.get_width(), field_size[0] - ant.get_width())
+		var random_y = rng.randi_range(0 + ant.get_height(), field_size[1] - ant.get_height())
+	
+		ant.position = Vector2(random_x, random_y)	
 
-	ant.add_to_group("Ants")
+		ant.add_to_group("Ants")
 
-	#ant.rotation = rng.randf_range(-1, 1)
+		#ant.rotation = rng.randf_range(-1, 1)
 
-	add_child(ant)
+		add_child(ant)
 
-func _create_squares(square_scene: PackedScene):
+func _create_squares(square_scene: PackedScene, nb_squares: int) -> void:
 
 	var rng = RandomNumberGenerator.new()
 	var field_size = get_viewport_rect().size
 
-	for i in 3:
-		var random_x = rng.randi_range(0, field_size[0])
-		var random_y = rng.randi_range(0, field_size[1])
-
+	for i in nb_squares:
 		var square = square_scene.instantiate()
 
+		var random_x = rng.randi_range(0 + square.get_width() * 15, field_size[0] - square.get_width() * 15)
+		var random_y = rng.randi_range(0 + square.get_height() * 15, field_size[1] - square.get_height() * 15)
+		
+		#var random_x = rng.randi_range(0 + 50, field_size[0] - 50)
+		#var random_y = rng.randi_range(0 + 50, field_size[1] - 50)
+		
 		square.position = Vector2(random_x, random_y)
-		square.scale = Vector2(3,3)
 
 		square.add_to_group("Squares")
 

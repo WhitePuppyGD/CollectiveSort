@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvppe40m7n5xk"]
+
+[ext_resource type="PackedScene" uid="uid://bxn8isq34i4vb" path="res://scenes/square.tscn" id="1_kbsg4"]
+
+[node name="Square" groups=["BlueSquares"] instance=ExtResource("1_kbsg4")]
+
+[node name="Sprite2D" parent="." index="0"]
+modulate = Color(0, 0, 1, 1)
