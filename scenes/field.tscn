@@ -1,20 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddx77l2wrkfyr"]
+[gd_scene load_steps=2 format=3 uid="uid://ddx77l2wrkfyr"]
 
-[ext_resource type="PackedScene" uid="uid://bc3fekm84pbxf" path="res://scenes/ant.tscn" id="1_jo67x"]
-[ext_resource type="PackedScene" uid="uid://bxn8isq34i4vb" path="res://scenes/square.tscn" id="3_1f0fw"]
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_7ymsm"]
 
-[node name="Field" type="Node2D"]
+[node name="main" type="Node2D"]
 position = Vector2(20, 18)
-
-[node name="Square" parent="." instance=ExtResource("3_1f0fw")]
-position = Vector2(311, 180)
-scale = Vector2(4, 4)
-
-[node name="Square2" parent="." instance=ExtResource("3_1f0fw")]
-position = Vector2(247, 333)
-
-[node name="Square3" parent="." instance=ExtResource("3_1f0fw")]
-position = Vector2(627, 144)
-
-[node name="Ant" parent="." instance=ExtResource("1_jo67x")]
-position = Vector2(453, 359)
+script = ExtResource("1_7ymsm")
