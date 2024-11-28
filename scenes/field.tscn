@@ -18,27 +18,27 @@ size = Vector2(25, 1144)
 position = Vector2(20, 18)
 script = ExtResource("1_7ymsm")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["Wall"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" groups=["Wall"]]
 position = Vector2(940.25, -34)
 shape = SubResource("RectangleShape2D_spwlv")
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+[node name="StaticBody2D2" type="StaticBody2D" parent="." groups=["Wall"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" groups=["Wall"]]
 position = Vector2(940.5, 1076)
 shape = SubResource("RectangleShape2D_8ghqk")
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+[node name="StaticBody2D3" type="StaticBody2D" parent="." groups=["Wall"]]
 position = Vector2(0.06, -42)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3" groups=["Wall"]]
 position = Vector2(-36.06, 564)
 shape = SubResource("RectangleShape2D_wlrxp")
 
-[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+[node name="StaticBody2D4" type="StaticBody2D" parent="." groups=["Wall"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4" groups=["Wall"]]
 position = Vector2(1908, 522)
 shape = SubResource("RectangleShape2D_o5ohg")
