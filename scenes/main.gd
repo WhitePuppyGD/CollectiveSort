@@ -1,8 +1,8 @@
 extends Node2D
 
-@export var nb_red_squares = 10
-@export var nb_blue_squares = 10
-@export var nb_ants = 5
+@export var nb_red_squares = 300
+@export var nb_blue_squares = 300
+@export var nb_ants = 50
 
 
 var rng = null
@@ -21,8 +21,6 @@ func _ready() -> void:
 	_create_squares(square_blue_scene, nb_blue_squares)
 
 	_create_ants(ant_scene, nb_ants)
-
-	_connect_signal_between_squares_and_ants()
 	
 
 func _create_ants(ant_scene: PackedScene, nb_ants: int):	
@@ -53,15 +51,3 @@ func _create_squares(square_scene: PackedScene, nb_squares: int) -> void:
 		square.position = Vector2(random_x, random_y)
 
 		add_child(square)
-
-
-# Lorsque l'Ant entre en collision avec le Square
-# Le Square envoie un signal à la Ant, puis c'est l'Ant qui gère ses décisions
-# Cette fonction connecte le signal émis par le Square et reçu par l'Ant
-func _connect_signal_between_squares_and_ants() -> void:
-	var ants = get_tree().get_nodes_in_group("Ants")
-	var squares = get_tree().get_nodes_in_group("Squares")
-	
-	for ant in ants:
-		for square in squares:
-			square.connect("body_entered_signal", Callable(ant, "_on_square_body_entered_signal"))	

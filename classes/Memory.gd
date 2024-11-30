@@ -16,6 +16,9 @@ func add(item) -> void:
 	if _memory.size() > _max_size:
 		_memory.pop_front()
 
+func get_size() -> int:
+	return _max_size
+
 func count_items_of_type(item_type:String) -> int:
 	var cnt = 0
 	
