@@ -2,7 +2,7 @@ extends Node2D
 
 @export var nb_red_squares = 300
 @export var nb_blue_squares = 300
-@export var nb_ants = 50
+@export var nb_ants = 100
 
 
 var rng = null
@@ -20,10 +20,10 @@ func _ready() -> void:
 	_create_squares(square_red_scene, nb_red_squares)
 	_create_squares(square_blue_scene, nb_blue_squares)
 
-	_create_ants(ant_scene, nb_ants)
+	_create_ants(ant_scene)
 	
 
-func _create_ants(ant_scene: PackedScene, nb_ants: int):	
+func _create_ants(ant_scene: PackedScene):	
 	
 	var field_size = get_viewport_rect().size
 	

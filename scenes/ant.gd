@@ -1,12 +1,13 @@
 extends CharacterBody2D
 
 
-var speed = 200000  # Vitesse du personnage en pixels par seconde
+var speed = 10000  # Vitesse du personnage en pixels par seconde
 var carried_object = null
-var carried_object_type = null
+#var carried_object_type = null
 var rng = null
 var memory = null
-var memory_size = 20
+var memory_size = 16
+var nb_of_steps = 0
 
 
 func _ready() -> void:
@@ -20,24 +21,24 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 
 	move_ahead(delta)
-	
-	return
-	
-	var input_vector = Vector2.ZERO
-	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-	input_vector = input_vector.normalized()  # Normalise le vecteur pour une vitesse constante
 
-	velocity = input_vector * speed
-
-	move_and_slide()  
-
-	#move_ahead(delta)
 
 func move_ahead(delta) -> void:
 	var direction = Vector2(cos(rotation - PI/2), sin(rotation - PI/2))
 
 	velocity = direction * speed * delta
+	
+	nb_of_steps +=1
+
+	# Si la fourmis n'a pas rencontré d'objet depuis qq pas,
+	# Elle enregistre "Void" dans sa mémoire
+	# Cela évite d'avoir une fourmis qui parcourt tout le terrain
+	# Et se souvient d'un Square rencontré plusieurs centaines de pas avant
+	if nb_of_steps % memory_size == 0:
+		memory.add("Void")
+	
+	if carried_object:
+		carried_object.position = position
 
 	move_and_slide()
 
@@ -48,95 +49,27 @@ func move_ahead(delta) -> void:
 func _get_new_rotation() -> float:
 	return rng.get_randf_range(-PI, PI)
 	
-func __pick_square(square: Node2D) -> void:
-
-	if carried_object:
-		return
-
-	square.get_parent().call_deferred("remove_child", square)
-	square.position = Vector2.ZERO
-	call_deferred("add_child", square)
-	square.get_node("CollisionShape2D").call_deferred("set_disabled", true)
-
-	carried_object_type = square.get_groups()[1]
-	carried_object = square
 
 func _pick_square(square: Node2D) -> void:
 
-	if carried_object:
-		return
-
-	carried_object_type = square.get_groups()[1]
+	# On enlève la détection une fois l'objet transporté
+	# Call_deferred car la propriété d'un noeud doit être traité 
+	# Une fois la gestion de la physique terminée
+	square.get_node("CollisionShape2D").call_deferred("set_disabled", true)
+	
+	# Pour que l'objet apparaisse au dessus de la fourmis
+	square.z_index = z_index + 1
 	carried_object = square
-
-	# Appeler la fonction différée
-	call_deferred("_deferred_pick_square", square)
-
-func _deferred_pick_square(square: Node2D) -> void:
-	if not is_instance_valid(square):
-		print("Erreur : 'square' n'est plus une instance valide.")
-		return
-
-	var parent = square.get_parent()
-	if parent != null:
-		parent.remove_child(square)
-	else:
-		print("Erreur : 'square' n'a pas de parent.")
-
-	add_child(square)
-	square.position = Vector2.ZERO
-
-	var collision_shape = square.get_node("CollisionShape2D")
-	if collision_shape:
-		collision_shape.set_disabled(true)
-	else:
-		print("Erreur : 'CollisionShape2D' introuvable dans 'square'.")
 
 
 func _drop_square() -> void:
-	print("drop : ", carried_object)
-	if carried_object != null and is_instance_valid(carried_object):
-		call_deferred("_deferred_drop_square")
-	else:
-		print("Erreur : 'carried_object' est nul ou invalide.")
 
-func _deferred_drop_square() -> void:
-	print("defered : ", carried_object)
-
-	carried_object.position = position
-
-	if carried_object.has_node("CollisionShape2D"):
-		carried_object.get_node("CollisionShape2D").set_disabled(false)
-	else:
-		print("Erreur : 'carried_object' n'a pas de nœud 'CollisionShape2D'.")
-
-	remove_child(carried_object)
-
-	var parent = get_parent()
-	if parent != null:
-		parent.add_child(carried_object)
-	else:
-		print("Erreur : le nœud courant n'a pas de parent.")
-
-	carried_object = null
-	carried_object_type = null
-
-
-func __drop_square() -> void:
-	
-	return
-	#carried_object.collision_layer = 1
-	#carried_object = null
-
-	#print("Drop !")	
-	carried_object.position = position
 	carried_object.get_node("CollisionShape2D").call_deferred("set_disabled", false)
-	call_deferred("remove_child", carried_object)
-	get_parent().call_deferred("add_child", carried_object)
-	#memory.flush()
-	carried_object = null
-	carried_object_type = null
 
+	# Pour que l'objet déposé soit en dessous de la fourmis
+	carried_object.z_index = z_index - 1
+	carried_object.position = position
+	carried_object = null
 
 func _decide_action(object_ant_is_on: Node2D, object_ant_is_on_type: String) -> void:
 
@@ -151,7 +84,6 @@ func _decide_action(object_ant_is_on: Node2D, object_ant_is_on_type: String) -> 
 		var count_object_types = memory.count_items_of_type(carried_object_type)
 
 		# Si elle a 8 objets de même type dans sa mémoire elle a 80% de drop
-		#if rng.get_randi_range(0, 10) < count_object_types:
 		if rng.get_randi_range(0, memory_size) < count_object_types:
 			_drop_square()
 
@@ -163,13 +95,15 @@ func _decide_action(object_ant_is_on: Node2D, object_ant_is_on_type: String) -> 
 		
 		# Si elle a 8 objets de même type dans sa mémoire, elle a 20% de pick
 		if rng.get_randi_range(0, memory_size) >= count_object_types:
-			#print("Object :", object_ant_is_on_type, " in Memory :", count_object_types)
 			_pick_square(object_ant_is_on)
 
 
 func next_move(square: Node2D) -> void:
 
-	#print("Decide next move from ", square, " with ", self)
+	# Cette fonction est appelée après une collision
+	# On remet le nb de pas à 0 après une collision
+	# Car la fourmis a rencontré un objet
+	nb_of_steps = 0
 	_decide_action(square, square.get_groups()[1])	
 	memory.add(square.get_groups()[1])
 
@@ -179,18 +113,11 @@ func _on_timer_timeout() -> void:
 	if rng.get_randi_range(0,9) >= 7:
 		rotation = _get_new_rotation()
 
-	#if carried_object:
-	#	remove_child(carried_object)
-		#get_parent().add_child(carried_object)
-	#	memory.flush()
-	#	carried_object = null
-
-
 func get_size() -> Vector2:
 	return $Sprite2D.texture.get_size() * $Sprite2D.scale
 
 func get_width() -> int:
-	return get_size()[0]
+	return int(get_size()[0])
 
 func get_height() -> int:
-	return get_size()[1]
+	return int(get_size()[1])
