@@ -1,0 +1,194 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3v7uemohad7e"]
+
+[ext_resource type="Script" path="res://scenes/menu.gd" id="1_nfw45"]
+[ext_resource type="Theme" uid="uid://k4qkbyxb7qqf" path="res://UI-themes/main_menu_theme.tres" id="1_y1suh"]
+[ext_resource type="Texture2D" uid="uid://k7lyytxtr5yf" path="res://artwork/ant.png" id="2_s2y47"]
+[ext_resource type="Texture2D" uid="uid://b7dqibbta1mqd" path="res://artwork/Fox_White.png" id="4_qpumx"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nfw45")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -479.5
+offset_top = -270.0
+offset_right = 479.5
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_y1suh")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 50
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="WhiteSquareLabel" type="ColorRect" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="AntLabel" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/GridContainer/WhiteSquareLabel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_s2y47")
+expand_mode = 3
+
+[node name="AntSlider" type="HSlider" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 900.0
+value = 300.0
+
+[node name="NbAntsLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer/AntSlider"]
+layout_mode = 0
+offset_left = 80.5
+offset_top = 31.0
+offset_right = 149.5
+offset_bottom = 68.0
+text = "###"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RedSquareLabel" type="ColorRect" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(1, 0, 0, 1)
+
+[node name="RedSquareSlider" type="HSlider" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 900.0
+value = 300.0
+
+[node name="NbRedSquaresLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer/RedSquareSlider"]
+layout_mode = 0
+offset_left = 80.5
+offset_top = 29.0
+offset_right = 149.5
+offset_bottom = 66.0
+text = "###"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BlueSquareLabel" type="ColorRect" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0, 0, 1, 1)
+
+[node name="BlueSquareSlider" type="HSlider" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+max_value = 900.0
+value = 300.0
+
+[node name="NbBlueSquaresLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer/BlueSquareSlider"]
+layout_mode = 0
+offset_left = 80.5
+offset_top = 11.0
+offset_right = 149.5
+offset_bottom = 48.0
+text = "###"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="FillButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "FILL"
+
+[node name="DefaultButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "DEFAULT VALUES"
+
+[node name="WhitePuppyTexture" type="TextureRect" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.067
+anchor_top = 0.907
+anchor_right = 0.067
+anchor_bottom = 0.907
+offset_left = -23.753
+offset_top = -23.78
+offset_right = 16.247
+offset_bottom = 32.22
+texture = ExtResource("4_qpumx")
+expand_mode = 4
+
+[node name="WhitePuppyLabel" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.109
+anchor_top = 0.893
+anchor_right = 0.242
+anchor_bottom = 0.912
+offset_left = 0.468994
+offset_top = -0.220032
+offset_right = 8.92198
+offset_bottom = 13.52
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 29
+text = "WhitePuppy"
+
+[connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/GridContainer/AntSlider" to="." method="_on_ant_slider_value_changed"]
+[connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/GridContainer/RedSquareSlider" to="." method="_on_red_square_slider_value_changed"]
+[connection signal="value_changed" from="Panel/MarginContainer/VBoxContainer/GridContainer/BlueSquareSlider" to="." method="_on_blue_square_slider_value_changed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/FillButton" to="." method="_on_fill_button_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/DefaultButton" to="." method="_on_default_button_pressed"]

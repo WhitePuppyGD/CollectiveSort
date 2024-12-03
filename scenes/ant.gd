@@ -3,7 +3,6 @@ extends CharacterBody2D
 
 var speed = 10000  # Vitesse du personnage en pixels par seconde
 var carried_object = null
-#var carried_object_type = null
 var rng = null
 var memory = null
 var memory_size = 16
