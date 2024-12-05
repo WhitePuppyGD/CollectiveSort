@@ -8,7 +8,6 @@ var memory = null
 var memory_size = 16
 var nb_of_steps = 0
 
-
 func _ready() -> void:
 	
 	rng = RandomNumber.new()
@@ -17,10 +16,9 @@ func _ready() -> void:
 
 	rotation = _get_new_rotation()
 
+
 func _physics_process(delta: float) -> void:
-
 	move_ahead(delta)
-
 
 func move_ahead(delta) -> void:
 	var direction = Vector2(cos(rotation - PI/2), sin(rotation - PI/2))
@@ -108,15 +106,5 @@ func next_move(square: Node2D) -> void:
 
 
 func _on_timer_timeout() -> void:
-
 	if rng.get_randi_range(0,9) >= 7:
 		rotation = _get_new_rotation()
-
-func get_size() -> Vector2:
-	return $Sprite2D.texture.get_size() * $Sprite2D.scale
-
-func get_width() -> int:
-	return int(get_size()[0])
-
-func get_height() -> int:
-	return int(get_size()[1])

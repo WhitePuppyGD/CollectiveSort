@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsqcss7s0q6kn"]
+
+[ext_resource type="Texture2D" uid="uid://lw2nayd4xa6" path="res://artwork/Ant1.png" id="1_4u13m"]
+
+[node name="AntSpriteForSize" type="Sprite2D"]
+texture = ExtResource("1_4u13m")

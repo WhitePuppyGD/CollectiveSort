@@ -52,7 +52,6 @@ func _unhandled_input(event):
 		menu_scene.visible = not menu_scene.visible
 
 
-
 func _process(delta: float) -> void:
 
 	var camera = get_node("Camera")
@@ -82,11 +81,10 @@ func _create_ants(antscene: PackedScene, nbants: int):
 	for i in nbants:
 	
 		var ant = antscene.instantiate()
-	
-		var random_x = rng.get_randi_range(0 + ant.get_width(), field_size[0] - ant.get_width())
-		var random_y = rng.get_randi_range(0 + ant.get_height(), field_size[1] - ant.get_height())
-	
-		ant.position = Vector2(random_x, random_y)
+		
+		# Les fourmis apparaissent toutes au milieu de l'écran
+		# ça fait un effet sympa je trouve
+		ant.position = Vector2(field_size[0]/2, field_size[1]/2)
 
 		get_node("Ants").add_child(ant)
 
