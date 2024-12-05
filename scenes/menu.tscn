@@ -80,8 +80,8 @@ expand_mode = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-max_value = 900.0
-value = 300.0
+max_value = 200.0
+value = 100.0
 
 [node name="NbAntsLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer/AntSlider"]
 layout_mode = 0

@@ -81,7 +81,7 @@ func _create_ants(antscene: PackedScene, nbants: int):
 	for i in nbants:
 	
 		var ant = antscene.instantiate()
-		
+			
 		# Les fourmis apparaissent toutes au milieu de l'écran
 		# ça fait un effet sympa je trouve
 		ant.position = Vector2(field_size[0]/2, field_size[1]/2)
