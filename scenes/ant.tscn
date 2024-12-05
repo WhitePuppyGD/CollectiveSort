@@ -1,7 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://bc3fekm84pbxf"]
+[gd_scene load_steps=7 format=3 uid="uid://bc3fekm84pbxf"]
 
-[ext_resource type="Texture2D" uid="uid://k7lyytxtr5yf" path="res://artwork/ant.png" id="1_3gwff"]
 [ext_resource type="Script" path="res://scenes/ant.gd" id="1_prexr"]
+[ext_resource type="Texture2D" uid="uid://lw2nayd4xa6" path="res://artwork/Ant1.png" id="2_j2ydf"]
+[ext_resource type="Texture2D" uid="uid://b58pn3dj3tqwo" path="res://artwork/Ant2.png" id="3_4w0ba"]
+[ext_resource type="Texture2D" uid="uid://y11ff03gs6t5" path="res://artwork/Ant3.png" id="4_e6xj8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5uuk0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_4w0ba")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_j2ydf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4w0ba")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_e6xj8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 9.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xn5j1"]
 radius = 6.0
@@ -12,13 +34,20 @@ z_index = 1
 motion_mode = 1
 script = ExtResource("1_prexr")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_3gwff")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_5uuk0")
+autoplay = "default"
+frame_progress = 0.604442
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_xn5j1")
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_j2ydf")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

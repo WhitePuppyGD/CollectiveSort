@@ -26,6 +26,9 @@ func _ready() -> void:
 	
 	_set_environment()
 
+
+# Ajoute les ants et les squares
+# Efface tout avant
 func _set_environment() -> void:
 	_delete_group_instances("Squares")
 	_delete_group_instances("Ants")
@@ -34,7 +37,6 @@ func _set_environment() -> void:
 	_create_squares(square_blue_scene, menu_scene.get_nb_blue_squares())
 
 	_create_ants(ant_scene, menu_scene.get_nb_ants())
-
 
 func _delete_group_instances(group_name: String) -> void:
 	var nodes = get_tree().get_nodes_in_group(group_name)
@@ -73,13 +75,13 @@ func _process(delta: float) -> void:
 	camera.position.x = clamp(camera.position.x, 100, 1000)
 	
 
-func _create_ants(ant_scene: PackedScene, nbants: int):
+func _create_ants(antscene: PackedScene, nbants: int):
 	
 	var field_size = get_viewport_rect().size
 	
 	for i in nbants:
 	
-		var ant = ant_scene.instantiate()
+		var ant = antscene.instantiate()
 	
 		var random_x = rng.get_randi_range(0 + ant.get_width(), field_size[0] - ant.get_width())
 		var random_y = rng.get_randi_range(0 + ant.get_height(), field_size[1] - ant.get_height())

@@ -3,11 +3,11 @@
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_uje7h"]
 [ext_resource type="PackedScene" uid="uid://b3v7uemohad7e" path="res://scenes/menu.tscn" id="2_flpif"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_n2aet"]
-size = Vector2(355.673, 609.362)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xxjks"]
 size = Vector2(2496, 186)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n2aet"]
+size = Vector2(355.673, 611.337)
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_uje7h")
@@ -18,31 +18,26 @@ script = ExtResource("1_uje7h")
 
 [node name="Walls" type="Node2D" parent="."]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Walls"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D"]
-position = Vector2(-145, 540)
-scale = Vector2(0.819476, 1.77235)
-shape = SubResource("RectangleShape2D_n2aet")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="Walls"]
-position = Vector2(6, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D2"]
-position = Vector2(1220, 536)
-scale = Vector2(0.819476, 1.77235)
-shape = SubResource("RectangleShape2D_n2aet")
-
 [node name="StaticBody2D3" type="StaticBody2D" parent="Walls"]
 position = Vector2(6, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D3"]
-position = Vector2(954, 1173)
+position = Vector2(956, 1173)
 shape = SubResource("RectangleShape2D_xxjks")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls/StaticBody2D3"]
 position = Vector2(954, -93)
 shape = SubResource("RectangleShape2D_xxjks")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls/StaticBody2D3"]
+position = Vector2(2060, 541.75)
+scale = Vector2(0.819476, 1.77235)
+shape = SubResource("RectangleShape2D_n2aet")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls/StaticBody2D3"]
+position = Vector2(-152, 539.5)
+scale = Vector2(0.819476, 1.77235)
+shape = SubResource("RectangleShape2D_n2aet")
 
 [node name="MenuCanvas" type="CanvasLayer" parent="."]
 
@@ -50,5 +45,5 @@ shape = SubResource("RectangleShape2D_xxjks")
 visible = false
 
 [node name="Camera" type="Camera2D" parent="."]
-position = Vector2(536, 544)
+position = Vector2(960, 540)
 limit_smoothed = true
