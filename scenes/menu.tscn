@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/menu.gd" id="1_nfw45"]
 [ext_resource type="Theme" uid="uid://k4qkbyxb7qqf" path="res://UI-themes/main_menu_theme.tres" id="1_y1suh"]
-[ext_resource type="Texture2D" uid="uid://k7lyytxtr5yf" path="res://artwork/ant.png" id="2_s2y47"]
+[ext_resource type="Texture2D" uid="uid://b58pn3dj3tqwo" path="res://artwork/Ant2.png" id="3_iuc3b"]
 [ext_resource type="Texture2D" uid="uid://b7dqibbta1mqd" path="res://artwork/Fox_White.png" id="4_qpumx"]
 
 [node name="Menu" type="Control"]
@@ -73,14 +73,14 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("2_s2y47")
+texture = ExtResource("3_iuc3b")
 expand_mode = 3
 
 [node name="AntSlider" type="HSlider" parent="Panel/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-max_value = 200.0
+max_value = 400.0
 value = 100.0
 
 [node name="NbAntsLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/GridContainer/AntSlider"]

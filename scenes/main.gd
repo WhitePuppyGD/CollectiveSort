@@ -76,17 +76,28 @@ func _process(delta: float) -> void:
 
 func _create_ants(antscene: PackedScene, nbants: int):
 	
+	# Le nb de fourmis qui sortent du même endroit en 1 fois
+	var batch_size = 50
+	var cnt_ants = 0
+	
 	var field_size = get_viewport_rect().size
 	
 	for i in nbants:
 	
-		var ant = antscene.instantiate()
+		var spawn_point = Vector2(rng.get_randi_range(0, field_size[0]), rng.get_randi_range(0, field_size[1]))
+	
+		# on fait apparaitre les fourmis à un même endroit par "batch" de 50 
+		# sinon elles se gênent et cela baisse les performances (ça rame)
+		for b in batch_size:
+	
+			var ant = antscene.instantiate()
 			
-		# Les fourmis apparaissent toutes au milieu de l'écran
-		# ça fait un effet sympa je trouve
-		ant.position = Vector2(field_size[0]/2, field_size[1]/2)
-
-		get_node("Ants").add_child(ant)
+			ant.position = spawn_point
+			cnt_ants += 1
+			get_node("Ants").add_child(ant)
+			
+			if cnt_ants > nbants:
+				break
 
 func _create_squares(square_scene: PackedScene, nb_squares: int) -> void:
 
